@@ -7,17 +7,18 @@ from selenium.webdriver.chrome.options import Options
 def lambda_handler(event,context):
     # Headless Chromeを使うための設定を追加
     options = Options()
-    options.add_argument('--headless')
-    options.add_argument('--disable-gpu')
+    options.add_argument("--headless")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--window-size=1280x1696")
     options.add_argument("--disable-application-cache")
     options.add_argument("--disable-infobars")
     options.add_argument("--no-sandbox")
     options.add_argument("--hide-scrollbars")
-    # options.add_argument("--enable-logging")
-    # options.add_argument("--log-level=0")
-    # options.add_argument("--v=99")
+    options.add_argument("--enable-logging")
+    options.add_argument("--log-level=0")
     options.add_argument("--single-process")
     options.add_argument("--ignore-certificate-errors")
+    options.add_argument("--homedir=/tmp")
 
 
     # Headless Chromeを起動
