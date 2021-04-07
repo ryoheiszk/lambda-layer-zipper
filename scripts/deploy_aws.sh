@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# AWSプロファイルを指定(ローカル:`~/.aws/config`より)
+export AWS_PROFILE=default
+
+# 変数定義
 layer_zip_name="lambda_layer.zip"
 layer_zip_path="./lambda_layer/${layer_zip_name}"
 bucket_name="samplescrapeselenium"
@@ -8,7 +12,7 @@ compatible_runtimes="python3.6"
 lambda_function_name="sample_scrape_selenium"
 
 # S3にレイヤーZipをアップロード
-aws s3 cp $layer_zip s3://$bucket_name
+aws s3 cp $layer_zip_path s3://$bucket_name
 
 # S3上のZipファイルからレイヤーを作成(S3ではバージョニングしていない)
 aws lambda publish-layer-version \

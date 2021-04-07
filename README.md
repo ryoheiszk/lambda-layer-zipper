@@ -7,6 +7,7 @@ LambdaでSeleniumスクレイピングをするために、Selenium/Chromium/Chr
 ## 必要環境
 
 * Docker
+* AWS CLI
 * シェルスクリプトの実行環境
 
 ## 仕組み
@@ -14,8 +15,13 @@ LambdaでSeleniumスクレイピングをするために、Selenium/Chromium/Chr
 `build.sh`で、レイヤーZip生成用のDockerイメージ・コンテナの作成と、生成後にイメージ・コンテナを破棄するためのDockerコマンドを発行する。
 `Dockerfile`には、Lambdaの実行環境が再現されたコンテナを用意し、必要なブツを揃えるためのコードが記述されている。
 ただし、CMD部が長くなったこととや将来的な拡張性を意識して、`docker_cmd.sh`に切り分けた。
+また、作成したレイヤーZipをAWS上に適用する処理も、更に切り分けた。
+認証情報に関しては、Dockerでうまいことやる方法もあるようだが、一旦スキップしてローカルの情報を読み込むことにした。
+そのため、`deploy_aws.sh`呼び出しは、`Dockerfile`でなく`build.sh`より行われる。
 
 ## 使用方法
 
 `build.sh`を実行する。
-プロジェクトの都合によって、`Dockerfile`や`docker_cmd.sh`を編集する。
+プロジェクトの都合によって、`Dockerfile`や各種スクリプトファイルを編集する。
+ただし、能力・時間的な都合で、AWS SAM CLIなどを利用したローカルのLambda実行環境やCI/CDパイプラインの整備ができていない。
+とりあえずローカルのPython環境で実行できたコードをLambda用に整形し、それらをそれぞれ手元のGitリポジトリで管理しつつ、Lambdaのコンソールにコピペするという運用で大きな問題はないと思われる。
