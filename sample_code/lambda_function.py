@@ -50,9 +50,9 @@ def lambda_handler(event,context):
 
         d_list.append(d)
 
-    # ブラウザを閉じる
+    # Chromeを閉じる
     driver.close()
-    # Google Chrome Canaryを終了する
+    # ChromeDriverを終了する
     driver.quit()
 
     return d_list
